@@ -1,9 +1,16 @@
 const inquirer = require('inquirer');
-// const generatePage = require('./src/page-template');
-// const { writeFile, copyFile } = require('./utils/generate-site');
+const generatePage = require('./src/page-template');
+const { writeFile, copyFile } = require('./utils/generate-site');
 
 
 const employee_ids = [];
+
+// Build employee data wrapper
+var employeeData = { 
+ employees: []
+}
+
+// Add manager info
 const promptManager = () => {
   return inquirer.prompt([
     {
@@ -67,6 +74,7 @@ const promptManager = () => {
   ]);
 };
 
+// Choose employee type
 const promptChooseEmployeeType = () => {
   return inquirer.prompt([
       {
@@ -78,6 +86,7 @@ const promptChooseEmployeeType = () => {
   ]);
 }
 
+// Add employee info
 const promptEmployee = (employee_type) => {
   console.log(employee_type)
   return inquirer.prompt([
@@ -135,6 +144,7 @@ const promptEmployee = (employee_type) => {
   ])
 }
 
+// Add another employee
 const promptAddEmployee = () => {
   return inquirer.prompt([
     {
@@ -147,27 +157,36 @@ const promptAddEmployee = () => {
 }
 
 const addEmployee = async () => {
+  // Add employee for employee role
   const employee_type = await promptChooseEmployeeType();
-  console.log(employee_type);
-  await promptEmployee(employee_type.employee_type);
+  // BUild employee from questions and add to employee array
+  var employee = await promptEmployee(employee_type.employee_type);
+  // Come back with an object.
+  employee.employee_type = employee_type.employee_type;
+  employeeData.employees.push(employee);
+
+
+  // Ask if additional employees are desired
   var addMore = await promptAddEmployee();
-  console.log(addMore.confirmAddEmployee);
-  if(addMore.confirmAddEmployee) {await addEmployee();}
+  // Build employee from prompts and add to employee array
+  if(addMore.confirmAddEmployee) {await addEmployee()}
 }
 
 
 promptManager()
-.then(addEmployee)
-  // .then(pageHTML => {
-  //   return writeFile(pageHTML);
-  // })
-  // .then(writeFileResponse => {
-  //   console.log(writeFileResponse);
-  //   return copyFile();
-  // })
-  // .then(copyFileResponse => {
-  //   console.log(copyFileResponse);
-  // })
+  .then(async(manager) => {
+    employeeData.manager = manager;
+    await addEmployee();
+  })
+  .then(() => {return generatePage(employeeData);})
+  .then(pageHTML => {return writeFile(pageHTML);})
+  .then(writeFileResponse => {
+    console.log(writeFileResponse);
+    return copyFile();
+  })
+  .then(copyFileResponse => {
+    console.log(copyFileResponse);
+  })
   .catch(err => {
-    console.log(err);
-  });
+  console.log(err);
+});

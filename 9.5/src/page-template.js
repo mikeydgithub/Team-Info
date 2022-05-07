@@ -61,7 +61,7 @@ const generateProjects = projectsArr => {
 // export function to generate entire page
 module.exports = templateData => {
   // destructure page data by section
-  const { projects, about, ...header } = templateData;
+  const { header, manager } = templateData;
 
   return `
   <!DOCTYPE html>
@@ -87,8 +87,8 @@ module.exports = templateData => {
       </div>
     </header>
     <main class="container my-5">
-      ${generateAbout(about)}
-      ${generateProjects(projects)}
+    ${manager}
+    // identification function goes here
     </main>
     <footer class="container text-center py-3">
       <h3 class="text-dark">&copy;2020 by ${header.name}</h3>
