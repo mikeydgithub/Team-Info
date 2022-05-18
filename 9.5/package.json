@@ -7,14 +7,13 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "node ./test/sample.js",
+    "test": "jest",
     "start": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^7.0.3",
-    "jest": "^28.1.0"
+    "inquirer": "^7.0.3"
   }
 }

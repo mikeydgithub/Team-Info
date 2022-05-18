@@ -12,3 +12,5 @@ class Engineer extends Employee {
     getRole()
     //over ride to return engineer
 }
+
+module.exports = Engineer;

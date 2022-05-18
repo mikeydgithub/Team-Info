@@ -1,6 +1,7 @@
 class Manager extends Employee {
     constructor() {
         this.officeNumber
+        this.manager
     }
 
     getRole() {
@@ -11,3 +12,5 @@ class Manager extends Employee {
     }
 
 }
+
+module.exports = Manager;
