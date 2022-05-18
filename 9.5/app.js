@@ -159,7 +159,7 @@ const promptAddEmployee = () => {
 const addEmployee = async () => {
   // Add employee for employee role
   const employee_type = await promptChooseEmployeeType();
-  // BUild employee from questions and add to employee array
+  // Build employee from questions and add to employee array
   var employee = await promptEmployee(employee_type.employee_type);
   // Come back with an object.
   employee.employee_type = employee_type.employee_type;
