@@ -30,7 +30,7 @@ const employeeCard = employeeData => {
 const employeeCards = employees => {
   return `
     <section class="my-3">
-      <div class="flex-row justify-space-evenly">
+      <div class="flex-row justify-space-around">
       ${employees
         .map(employee => employeeCard(employee))
         .join('')}
