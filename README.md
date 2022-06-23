@@ -84,7 +84,7 @@
   
   ## Email and Contact Information
      
-  ampgzo2@gmail.com
+  mikediamond334@gmail.com
 
   ## Walk through Video
 
